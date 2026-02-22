@@ -5,7 +5,7 @@ on:
     branches: [ "develop", "main" ]
   pull_request:
     branches: [ "develop", "main" ]
-    
+
 permissions:
   contents: read
   checks: write
@@ -60,10 +60,11 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: StandaloneWindows64
-          buildPath: build/windows
+          buildsPath: build
+          allowDirtyBuild: true
 
       - name: Upload Windows build
         uses: actions/upload-artifact@v4
         with:
           name: Windows-build
-          path: build/windows
+          path: build
