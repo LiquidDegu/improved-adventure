@@ -6,6 +6,11 @@ on:
   pull_request:
     branches: [ "develop", "main" ]
 
+permissions:
+  contents: read
+  checks: write
+  pull-requests: write
+
 concurrency:
   group: ${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
@@ -55,10 +60,11 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: StandaloneWindows64
-          buildPath: build/windows
+          buildsPath: build
+          allowDirtyBuild: true
 
       - name: Upload Windows build
         uses: actions/upload-artifact@v4
         with:
           name: Windows-build
-          path: build/windows
+          path: build
